@@ -63,9 +63,9 @@ class OpenTDB:
     def check_answer(self, answer):
         if answer in self.answers:
             if self.question['correct_answer'] == self.answers[answer]:
-                return 'Correct Answer'
+                return True
             else:
-                return 'Incorrect Answer'
+                return False
         else:
             return 'Invalid Input'
 
