@@ -11,7 +11,6 @@ if os.path.exists('config.ini'):
     config = configparser.ConfigParser()
     config.read('config.ini')
     apiToken = config['api']['token']
-    print(apiToken)
 else:
     print('Missing API Token/Config file')
 
@@ -30,6 +29,7 @@ class MyClient(discord.Client):
             return
 
         if message.content.startswith('!Q'):
+            print(message.author)
             question = f'{self.trivia.get_category()} - {self.trivia.get_difficulty()}\n'
             question += self.trivia.get_question() + '\n'
             for a in self.trivia.get_all_answers():
@@ -41,7 +41,7 @@ class MyClient(discord.Client):
                 return m.author == message.author
 
             try:
-                guess = await self.wait_for('message', check=is_correct, timeout=5.0)
+                guess = await self.wait_for('message', check=is_correct, timeout=60.0)
             except asyncio.TimeoutError:
                 return await message.channel.send('Sorry, you took too long it was {}.'.format(self.trivia.get_correct_answer()))
 

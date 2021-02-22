@@ -48,6 +48,7 @@ class OpenTDB:
     def get_all_answers(self):
         answers = self.question['incorrect_answers']
         answers.append(self.question['correct_answer'])
+        answer = list(map(html.escape, answers))
         random.shuffle(answers)
         self.answers = {}
         self.answers = dict(zip(list(string.ascii_uppercase), answers))
